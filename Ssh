@@ -1,0 +1,53 @@
+import com.jcraft.jsch.*;
+import java.io.ByteArrayOutputStream;
+
+public class SSHClient {
+    
+    private Session session;
+    private ChannelExec channel;
+
+    public SSHClient(String username, String password, String host, int port) throws JSchException {
+        JSch jsch = new JSch();
+        session = jsch.getSession(username, host, port);
+        session.setPassword(password);
+        session.setConfig("StrictHostKeyChecking", "no");
+        session.connect();
+    }
+
+    public String executeCommand(String command) throws Exception {
+        try {
+            channel = (ChannelExec) session.openChannel("exec");
+            channel.setCommand(command);
+            ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
+            channel.setOutputStream(responseStream);
+            channel.connect();
+            
+            while (channel.isConnected()) {
+                Thread.sleep(100);
+            }
+            
+            return new String(responseStream.toByteArray());
+        } finally {
+            if (channel != null) {
+                channel.disconnect();
+            }
+        }
+    }
+
+    public void close() {
+        if (session != null) {
+            session.disconnect();
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        SSHClient sshClient = new SSHClient("username", "password", "host", 22);
+        
+        // Execute a chain of commands
+        String response = sshClient.executeCommand("cd /desired/directory && ls -la");
+        System.out.println(response);
+
+        // Close the session when done
+        sshClient.close();
+    }
+}
