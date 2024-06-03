@@ -10,18 +10,28 @@ body {
   text-align: center;
 }
 
-.grid-container {
+.content {
   padding: 20px;
 }
 
-.ag-theme-quartz {
+.title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.grid-container {
+  padding: 20px 0;
+}
+
+.ag-theme-quartz.ag-grid-full-width {
   height: 400px;
   width: 100%;
   margin-top: 10px;
 }
 
 .service-search {
-  padding: 20px;
+  padding: 20px 0;
   background-color: #f4f4f4;
   margin-top: 20px;
 }
@@ -34,6 +44,7 @@ body {
 .input-container {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
 }
 
 input[type="text"] {
