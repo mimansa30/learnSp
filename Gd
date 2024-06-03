@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css"; // Using a cleaner theme
+import "ag-grid-community/styles/ag-theme-quartz.css";
 import "./Grid.styles.css";
 
 const GridExample = () => {
@@ -62,27 +62,27 @@ const GridExample = () => {
 
   return (
     <div>
-      <nav className="navbar">
-        <h1>Services</h1>
-      </nav>
-      <div className="grid-container">
-        <div className="ag-theme-alpine" style={{ width: "100%", height: "400px" }}>
-          <AgGridReact
-            rowData={rowData}
-            columnDefs={colDefs}
-          />
+      <div className="content">
+        <h1 className="title">Services</h1>
+        <div className="grid-container">
+          <div className="ag-theme-quartz ag-grid-full-width">
+            <AgGridReact
+              rowData={rowData}
+              columnDefs={colDefs}
+            />
+          </div>
         </div>
-      </div>
-      <div className="service-search">
-        <h2>Find Service by Name</h2>
-        <div className="input-container">
-          <input
-            type="text"
-            value={serviceName}
-            onChange={e => setServiceName(e.target.value)}
-            placeholder="Enter service name"
-          />
-          <button onClick={fetchServiceByName} className="fetch-button">Fetch Service</button>
+        <div className="service-search">
+          <h2>Find Service by Name</h2>
+          <div className="input-container">
+            <input
+              type="text"
+              value={serviceName}
+              onChange={e => setServiceName(e.target.value)}
+              placeholder="Enter service name"
+            />
+            <button onClick={fetchServiceByName} className="fetch-button">Fetch Service</button>
+          </div>
         </div>
       </div>
     </div>
@@ -90,3 +90,4 @@ const GridExample = () => {
 };
 
 export default GridExample;
+
